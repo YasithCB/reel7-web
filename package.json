@@ -1,0 +1,28 @@
+{
+  "name": "film-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "format": "prettier --write .",
+    "check-format": "prettier --check ."
+  },
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.0.0",
+    "axios": "^1.11.0",
+    "bootstrap": "^5.3.8",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.8.2",
+    "swiper": "^11.2.10"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "prettier": "^3.6.2",
+    "vite": "^6.3.5"
+  }
+}
