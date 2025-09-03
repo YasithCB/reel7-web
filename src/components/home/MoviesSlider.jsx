@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { getPopularMovies } from "../../api/tmdb"; // your axios helper
-import "swiper/css";
-import "../../assets/css/MoviesSlider.css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import 'swiper/css';
+import '../../assets/css/MoviesSlider.css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 
-export default function MoviesSlider( { title,subtitle,list}) {
-
+export default function MoviesSlider({ title, subtitle, list }) {
   return (
-    <section id="featured-posts" className="featured-posts section">
+    <section id="movie-showcase" className="movie-showcase section">
       {/* Section Title */}
       <div className="container section-title" data-aos="fade-up">
         <h2>{subtitle}</h2>
@@ -36,41 +34,35 @@ export default function MoviesSlider( { title,subtitle,list}) {
           }}
         >
           {list
-            .filter(movie => movie.poster_path) // skip if null
+            .filter((movie) => movie.poster_path) // skip if null
             .map((movie) => (
-            <SwiperSlide key={movie.id}>
-              <div className="blog-post-item">
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.title}
-                />
-                <div className="blog-post-content">
-                  <div className="post-meta">
-                    <span>
-                      <i className="bi bi-person"></i> {movie.title}
-                    </span>
-                    <span>
-                      <i className="bi bi-clock"></i>{" "}
-                      {new Date(movie.release_date).toDateString()}
-                    </span>
-                    <span>
-                      <i className="bi bi-star"></i> {movie.vote_average}
-                    </span>
+              <SwiperSlide key={movie.id}>
+                <NavLink to={`/movie/${movie.id}`}>
+                  <div className="blog-post-item">
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                      alt={movie.title}
+                    />
+                    <div className="movie-showcase-content">
+                      <div className="post-meta mb-2">
+                        <span className="mb-1">
+                          <i className="bi bi-clock"></i>{' '}
+                          {new Date(movie.release_date).toDateString()}
+                        </span>
+                        <span className="bg-yellow text-black fw-bold px-2 py-1 rounded-3">
+                          <i className="bi bi-star"></i>
+                          {movie.vote_average.toFixed(1)}
+                        </span>
+                      </div>
+                      <h2 className="m-0">{movie.title}</h2>
+                      <div className="read-more">
+                        Read More | Watch <i className="bi bi-arrow-right"></i>
+                      </div>
+                    </div>
                   </div>
-                  <h2>
-                    <NavLink to={`/movie/${movie.id}`}>{movie.title}</NavLink>
-                  </h2>
-                  <p>{movie.overview.slice(0, 100)}...</p>
-                  <NavLink
-                    to={`/movie/${movie.id}`}
-                    className="read-more"
-                  >
-                    Read More <i className="bi bi-arrow-right"></i>
-                  </NavLink>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
+                </NavLink>
+              </SwiperSlide>
+            ))}
         </Swiper>
       </div>
     </section>

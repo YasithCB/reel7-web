@@ -1,3 +1,40 @@
+:root {
+    --primary-color: #f75815 !important;
+}
+
 a {
     text-decoration: none;
 }
+
+/*bg*/
+.bg-yellow{
+    background-color: #ffd500 !important;
+}
+.bg-orange{
+    background-color: #f75815 !important;
+    color: white !important;
+}
+/*bg*/
+
+/*button*/
+/* Base button */
+.toggle-btn-orange {
+    color: var(--primary-color) !important;
+    background-color: transparent !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* Selected / active button */
+.toggle-btn-orange-selected {
+    color: white !important;
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* Optional: hover effect for selected */
+.toggle-btn-orange:hover {
+    background-color: rgba(247, 88, 21, 0.1) !important; /* slightly darker */
+}
+
+
+/*button*/

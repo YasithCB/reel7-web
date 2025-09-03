@@ -6,7 +6,7 @@ import {
 } from '../api/moviesAPI';
 import MoviesSlider from '../components/home/MoviesSlider';
 
-export default function Home() {
+export default function Movies() {
   const [popularMovies, setPopularMovies] = useState([]);
   const [hindiMovies, setHindiMovies] = useState([]);
   const [englishMovies, setEnglishMovies] = useState([]);
@@ -14,7 +14,6 @@ export default function Home() {
   const [teluguMovies, setTeluguMovies] = useState([]);
   const [malayalamMovies, setMalayalamMovies] = useState([]);
   const [koreanMovies, setKoreanMovies] = useState([]);
-  const [popularTvSeries, setPopularTvSeries] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -38,25 +37,16 @@ export default function Home() {
 
       tempList = await getMoviesByLanguage('ko');
       setKoreanMovies(tempList); // korean movies
-
-      tempList = await getPopularTv();
-      setPopularTvSeries(tempList); // korean movies
     }
     fetchData();
   }, []);
 
   return (
     <>
-      {/*<BlogHero/>*/}
       <MoviesSlider
         title={'Most Popular Movies'}
         subtitle={"What's up in this month"}
         list={popularMovies}
-      />
-      <MoviesSlider
-        title={'Most Popular TV Series'}
-        subtitle={"What's up in this month"}
-        list={popularTvSeries}
       />
       <MoviesSlider
         title={'Hindi Movies'}

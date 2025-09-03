@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { getPopularMovies } from "../../api/tmdb"; // <-- using the axios helper
-import '../../assets/css/BlogHero.css'
+import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { getPopularMovies } from '../../api/moviesAPI'; // <-- using the axios helper
+import '../../assets/css/BlogHero.css';
 
 export default function BlogHero() {
   const [movies, setMovies] = useState([]);
@@ -32,10 +32,15 @@ export default function BlogHero() {
                     <span className="date">
                       {new Date(movies[0].release_date).toDateString()}
                     </span>
-                    <span className="category">⭐ {movies[0].vote_average}</span>
+                    <span className="category">
+                      ⭐ {movies[0].vote_average}
+                    </span>
                   </div>
                   <h2 className="post-title">
-                    <NavLink to={`/movie/${movies[0].id}`} title={movies[0].title}>
+                    <NavLink
+                      to={`/movie/${movies[0].id}`}
+                      title={movies[0].title}
+                    >
                       {movies[0].title}
                     </NavLink>
                   </h2>
