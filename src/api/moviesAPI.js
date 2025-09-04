@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { TMDB_API_KEY, TMDB_BASE_URL } from '../data/const';
+import {
+  OMDB_API_KEY,
+  OMDB_BASE_URL,
+  TMDB_API_KEY,
+  TMDB_BASE_URL,
+} from '../data/const';
 
 /**
  * Search movies by name (case-insensitive, partial match).
@@ -38,21 +43,6 @@ export const searchMoviesByName = async (name, page = 1) => {
 export const getPopularMovies = async () => {
   const res = await axios.get(`${TMDB_BASE_URL}/movie/popular`, {
     params: { api_key: TMDB_API_KEY, language: 'en-US', page: 1 },
-  });
-  return res.data.results;
-};
-
-/**
- * Search movies by query string.
- *
- * @async
- * @function searchMovies
- * @param {string} query - The search term (movie title, keyword, etc.).
- * @returns {Promise<Object[]>} A promise that resolves to an array of movies matching the query.
- */
-export const searchMovies = async (query) => {
-  const res = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
-    params: { api_key: TMDB_API_KEY, language: 'en-US', query, page: 1 },
   });
   return res.data.results;
 };
@@ -129,6 +119,46 @@ export const getMoviesByLanguage = async (lang, year = 2000, page = 1) => {
 };
 
 /**
+ * Fetch movies by category and optional subcategory
+ * @param {string} category - Main category ("Genres", "Trending", "Movies Language", "TV Language")
+ * @param {object} subCategoryId - Subcategory object {23}
+ * @returns {Promise<Array>} - Array of movie objects
+ */
+export const searchMoviesByCategory = async (category, subCategoryId) => {
+  try {
+    let url = '';
+    const params = { api_key: TMDB_API_KEY };
+
+    if (category === 'Genres') {
+      // subCategory.id must be TMDB genre ID
+      url = `${TMDB_BASE_URL}/discover/movie`;
+      params.with_genres = subCategoryId;
+    } else if (category === 'Trending') {
+      if (subCategoryId.toLowerCase().includes('movie')) {
+        url = `${TMDB_BASE_URL}/trending/movie/day`;
+      } else if (subCategoryId.toLowerCase().includes('tv')) {
+        url = `${TMDB_BASE_URL}/trending/tv/day`;
+      } else if (subCategoryId.toLowerCase().includes('actor')) {
+        // Popular Actors endpoint
+        url = `${TMDB_BASE_URL}/person/popular`;
+      } else {
+        url = `${TMDB_BASE_URL}/trending/all/day`;
+      }
+    } else if (category === 'Movies Language' || category === 'TV Language') {
+      url = `${TMDB_BASE_URL}/discover/${category.includes('Movies') ? 'movie' : 'tv'}`;
+      // subCategory.code must be TMDB language code like 'en', 'hi', 'fr'
+      params.with_original_language = subCategoryId;
+    }
+
+    const response = await axios.get(url, { params });
+    return response.data.results || [];
+  } catch (error) {
+    console.error('Error fetching movies by category:', error);
+    return [];
+  }
+};
+
+/**
  * Get IMDb rating using the OMDb API.
  *
  * @async
@@ -138,10 +168,10 @@ export const getMoviesByLanguage = async (lang, year = 2000, page = 1) => {
  */
 export const getImdbRating = async (imdbId) => {
   try {
-    const res = await axios.get(`https://www.omdbapi.com/`, {
+    const res = await axios.get(OMDB_BASE_URL, {
       params: {
         i: imdbId,
-        apikey: process.env.OMDB_API_KEY,
+        apikey: OMDB_API_KEY,
       },
     });
     return res.data.imdbRating;

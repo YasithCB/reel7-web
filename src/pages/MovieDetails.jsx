@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getImdbRating, getMovieById } from '../api/moviesAPI';
 import MovieTrailer from '../components/MovieTrailer';
+import Loader from '../components/Loader';
 
 export default function MovieDetails() {
   const { id } = useParams();
@@ -21,7 +22,7 @@ export default function MovieDetails() {
     fetchMovie();
   }, [id]); // added id so it fetches when route changes
 
-  if (!movie) return <div className="loading"></div>;
+  if (!movie) return <Loader />;
 
   return (
     <div className="container">
@@ -129,7 +130,7 @@ export default function MovieDetails() {
                         {movie.genres
                           ? movie.genres.map((l, idx) => (
                               <span
-                                key={l.iso_639_1}
+                                key={idx}
                                 className="bg-orange px-3 py-1 rounded me-1 fs-6"
                               >
                                 {l.name}

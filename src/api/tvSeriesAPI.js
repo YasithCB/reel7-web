@@ -26,6 +26,30 @@ export const getPopularTv = async (page = 1) => {
 };
 
 /**
+ * Fetch TV series by original language
+ * @param {string} lang - ISO 639-1 language code (e.g. 'ko' for Korean, 'ja' for Japanese, 'hi' for Hindi)
+ * @param {number} page - Page number for pagination (default: 1)
+ * @returns {Promise<Array>} - List of TV series
+ */
+export const getTvSeriesByLanguage = async (lang, page = 1) => {
+  try {
+    const res = await axios.get(`${TMDB_BASE_URL}/discover/tv`, {
+      params: {
+        api_key: TMDB_API_KEY,
+        language: 'en-US', // UI language
+        sort_by: 'popularity.desc',
+        with_original_language: lang, // filter by original language
+        page,
+      },
+    });
+    return res.data.results;
+  } catch (err) {
+    console.error('TMDb Error:', err.message);
+    return [];
+  }
+};
+
+/**
  * Get TV show details by TMDb ID.
  *
  * @async

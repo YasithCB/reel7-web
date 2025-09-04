@@ -9,8 +9,10 @@ export default function SearchForm() {
     e.preventDefault();
     if (!query.trim()) return;
 
-    // Navigate to the search results page with query as URL param
-    navigate(`/search?query=${encodeURIComponent(query)}`);
+    // If the search is a text query
+    let url = `/search-result?query=${encodeURIComponent(query)}`;
+
+    navigate(url);
   };
 
   return (

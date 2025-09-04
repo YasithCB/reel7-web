@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -7,114 +7,102 @@ export default function Footer() {
         <div className="row gy-4">
           <div className="col-lg-4 col-md-6 footer-about">
             <NavLink to="/" className="logo d-flex align-items-center">
-              <span className="sitename">Reel7</span>
+              <span className="sitename">REel7</span>
             </NavLink>
-            <div className="footer-contact pt-3">
-              <p>A108 Adam Street</p>
-              <p>New York, NY 535022</p>
-              <p className="mt-3">
-                <strong>Phone:</strong> <span>+1 5589 55488 55</span>
-              </p>
-              <p>
-                <strong>Email:</strong> <span>info@example.com</span>
-              </p>
-            </div>
+            <p className="mt-3">
+              Discover and explore movies and TV shows from around the world.
+              Your hub for entertainment in every language.
+            </p>
             <div className="social-links d-flex mt-4">
               <a href="#">
-                <i className="fas fa-x"></i>
+                <i className="fab fa-facebook-f"></i>
               </a>
               <a href="#">
-                <i className="fas fa-facebook-f"></i>
+                <i className="fab fa-instagram"></i>
               </a>
               <a href="#">
-                <i className="fas fa-instagram"></i>
+                <i className="fab fa-twitter"></i>
               </a>
               <a href="#">
-                <i className="fas fa-linkedin-in"></i>
+                <i className="fab fa-youtube"></i>
               </a>
             </div>
           </div>
 
           <div className="col-lg-2 col-md-3 footer-links">
-            <h4>Useful Links</h4>
+            <h4>Movies</h4>
             <ul>
               <li>
-                <NavLink to="/">Home</NavLink>
+                <NavLink to="/movies/now-playing">Now Playing</NavLink>
               </li>
               <li>
-                <NavLink to="/about">About us</NavLink>
+                <NavLink to="/movies/popular">Popular</NavLink>
               </li>
               <li>
-                <NavLink to="/services">Services</NavLink>
+                <NavLink to="/movies/top-rated">Top Rated</NavLink>
               </li>
               <li>
-                <NavLink to="/terms">Terms of service</NavLink>
-              </li>
-              <li>
-                <NavLink to="/privacy">Privacy policy</NavLink>
+                <NavLink to="/movies/upcoming">Upcoming</NavLink>
               </li>
             </ul>
           </div>
 
           <div className="col-lg-2 col-md-3 footer-links">
-            <h4>Our Services</h4>
+            <h4>TV Series</h4>
             <ul>
               <li>
-                <NavLink to="/web-design">Web Design</NavLink>
+                <NavLink to="/tv/airing-today">Airing Today</NavLink>
               </li>
               <li>
-                <NavLink to="/web-development">Web Development</NavLink>
+                <NavLink to="/tv/on-the-air">On The Air</NavLink>
               </li>
               <li>
-                <NavLink to="/product-management">Product Management</NavLink>
+                <NavLink to="/tv/popular">Popular</NavLink>
               </li>
               <li>
-                <NavLink to="/marketing">Marketing</NavLink>
-              </li>
-              <li>
-                <NavLink to="/graphic-design">Graphic Design</NavLink>
+                <NavLink to="/tv/top-rated">Top Rated</NavLink>
               </li>
             </ul>
           </div>
 
           <div className="col-lg-2 col-md-3 footer-links">
-            <h4>Hic solutasetp</h4>
+            <h4>Languages</h4>
             <ul>
               <li>
-                <NavLink to="/molestiae">Molestiae accusamus iure</NavLink>
+                <NavLink to="/movies/language/english">English</NavLink>
               </li>
               <li>
-                <NavLink to="/excepturi">Excepturi dignissimos</NavLink>
+                <NavLink to="/movies/language/korean">Korean</NavLink>
               </li>
               <li>
-                <NavLink to="/suscipit">Suscipit distinctio</NavLink>
+                <NavLink to="/movies/language/japanese">Japanese</NavLink>
               </li>
               <li>
-                <NavLink to="/dilecta">Dilecta</NavLink>
+                <NavLink to="/movies/language/hindi">Hindi</NavLink>
               </li>
               <li>
-                <NavLink to="/sit-quas">Sit quas consectetur</NavLink>
+                <NavLink to="/movies/language/spanish">Spanish</NavLink>
               </li>
             </ul>
           </div>
 
           <div className="col-lg-2 col-md-3 footer-links">
-            <h4>Nobis illum</h4>
+            <h4>Categories</h4>
             <ul>
               <li>
-                <NavLink to="/ipsam">Ipsam</NavLink>
+                <NavLink to="/genre/action">Action</NavLink>
               </li>
               <li>
-                <NavLink to="/laudantium">Laudantium dolorum</NavLink>
+                <NavLink to="/genre/drama">Drama</NavLink>
               </li>
               <li>
-                <NavLink to="/dinera">Dinera</NavLink>
+                <NavLink to="/genre/comedy">Comedy</NavLink>
               </li>
               <li>
-                <NavLink to="/trodelas">Trodelas</NavLink>
+                <NavLink to="/genre/horror">Horror</NavLink>
               </li>
               <li>
-                <NavLink to="/flexo">Flexo</NavLink>
+                <NavLink to="/genre/romance">Romance</NavLink>
               </li>
             </ul>
           </div>
@@ -123,15 +111,11 @@ export default function Footer() {
 
       <div className="container copyright text-center mt-4">
         <p>
-          © <span>Copyright</span> <strong className="px-1 sitename">Reel7</strong>{" "}
+          © <span>{new Date().getFullYear()}</span>{' '}
+          <strong className="px-1 sitename">Reel7</strong>{' '}
           <span>All Rights Reserved</span>
         </p>
-        <div className="credits">
-          Designed by{" "}
-          <a href="https://bootstrapmade.com/" target="_blank" rel="noreferrer">
-            BootstrapMade
-          </a>
-        </div>
+        <div className="credits">Made with ❤️ for movie lovers</div>
       </div>
     </footer>
   );

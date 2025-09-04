@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import '../assets/css/Header.css';
 import SearchForm from './SearchForm';
+import { MENU_ITEMS } from '../data/const';
 
 export default function Header() {
   return (
@@ -57,36 +58,26 @@ export default function Header() {
         {/* orange strip - bottom */}
         <div className="nav-bottom-strip">
           <div className="container d-flex justify-content-center align-items-center h-100">
-            <nav id="navmenu" className="navmenu text-white">
-              <ul>
-                <li>
-                  <NavLink to="/movies">Trending</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/tv">Latest</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/tv">English</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/contact">Hindi</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/movies">Tamil</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/tv">Malayalam</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/contact">Telugu</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/movies">Korean</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/contact">Old</NavLink>
-                </li>
+            <nav className="text-white">
+              <ul className="nav-dropdown">
+                {MENU_ITEMS.map((item, index) => (
+                  <li key={index} className="dropdown">
+                    <span className="dropdown-title">{item.title}</span>
+                    <ul className="dropdown-menu">
+                      {item.subCategories.map((sub, subIndex) => (
+                        <li key={subIndex}>
+                          <NavLink
+                            to={`/search-result?category=${item.title}&sub=${encodeURIComponent(sub.name)}&id=${sub.id}`}
+                          >
+                            {sub.name}
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
               </ul>
+
               <i className="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
           </div>

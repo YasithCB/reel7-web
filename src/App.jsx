@@ -8,6 +8,7 @@ import MovieDetails from './pages/MovieDetails';
 import SearchResults from './pages/SearchResults';
 import Movies from './pages/Movies';
 import TvSeries from './pages/TvSeries';
+import Contact from './pages/Contact';
 
 export default function App() {
   return (
@@ -18,8 +19,9 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="/movies" element={<Movies />} />
           <Route path="/tv" element={<TvSeries />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/movie/:id" element={<MovieDetails />} />
-          <Route path="/search" element={<SearchResults />} />
+          <Route path="/search-result" element={<SearchResults />} />
         </Route>
       </Routes>
     </BrowserRouter>
@@ -27,23 +29,10 @@ export default function App() {
 }
 
 function Layout() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate page load delay
-    const timer = setTimeout(() => {
-      const preloader = document.getElementById('preloader');
-      if (preloader) preloader.style.display = 'none';
-      setLoading(false);
-    }, 1000); // 1s delay, adjust as needed
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <div>
       <Header />
-      {!loading && <Outlet />}
+      <Outlet />
       <Footer />
     </div>
   );

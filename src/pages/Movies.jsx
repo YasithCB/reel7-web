@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {
-  getMoviesByLanguage,
-  getPopularMovies,
-  getPopularTv,
-} from '../api/moviesAPI';
+import { getMoviesByLanguage, getPopularMovies } from '../api/moviesAPI';
 import MoviesSlider from '../components/home/MoviesSlider';
+import Loader from '../components/Loader';
 
 export default function Movies() {
+  const [loading, setLoading] = useState(false); // loading state
+
   const [popularMovies, setPopularMovies] = useState([]);
   const [hindiMovies, setHindiMovies] = useState([]);
   const [englishMovies, setEnglishMovies] = useState([]);
@@ -16,6 +15,7 @@ export default function Movies() {
   const [koreanMovies, setKoreanMovies] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
     async function fetchData() {
       let tempList = await getPopularMovies();
       setPopularMovies(tempList.slice(0, 20)); // first 20 popular movies
@@ -38,46 +38,54 @@ export default function Movies() {
       tempList = await getMoviesByLanguage('ko');
       setKoreanMovies(tempList); // korean movies
     }
-    fetchData();
+    fetchData().then((r) => {
+      setLoading(false);
+    });
   }, []);
 
   return (
     <>
-      <MoviesSlider
-        title={'Most Popular Movies'}
-        subtitle={"What's up in this month"}
-        list={popularMovies}
-      />
-      <MoviesSlider
-        title={'Hindi Movies'}
-        subtitle={"What's up in this month"}
-        list={hindiMovies}
-      />
-      <MoviesSlider
-        title={'English Movies'}
-        subtitle={"What's up in this month"}
-        list={englishMovies}
-      />
-      <MoviesSlider
-        title={'Korean Movies'}
-        subtitle={"What's up in this month"}
-        list={koreanMovies}
-      />
-      <MoviesSlider
-        title={'Tamil Movies'}
-        subtitle={"What's up in this month"}
-        list={tamilMovies}
-      />
-      <MoviesSlider
-        title={'Malayalam Movies'}
-        subtitle={"What's up in this month"}
-        list={malayalamMovies}
-      />
-      <MoviesSlider
-        title={'Telugu Movies'}
-        subtitle={"What's up in this month"}
-        list={teluguMovies}
-      />
+      {loading ? (
+        <Loader />
+      ) : (
+        <div>
+          <MoviesSlider
+            title={'Most Popular Movies'}
+            subtitle={"What's up in this month"}
+            list={popularMovies}
+          />
+          <MoviesSlider
+            title={'Hindi Movies'}
+            subtitle={"What's up in this month"}
+            list={hindiMovies}
+          />
+          <MoviesSlider
+            title={'English Movies'}
+            subtitle={"What's up in this month"}
+            list={englishMovies}
+          />
+          <MoviesSlider
+            title={'Korean Movies'}
+            subtitle={"What's up in this month"}
+            list={koreanMovies}
+          />
+          <MoviesSlider
+            title={'Tamil Movies'}
+            subtitle={"What's up in this month"}
+            list={tamilMovies}
+          />
+          <MoviesSlider
+            title={'Malayalam Movies'}
+            subtitle={"What's up in this month"}
+            list={malayalamMovies}
+          />
+          <MoviesSlider
+            title={'Telugu Movies'}
+            subtitle={"What's up in this month"}
+            list={teluguMovies}
+          />
+        </div>
+      )}
     </>
   );
 }
