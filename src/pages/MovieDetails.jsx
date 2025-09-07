@@ -1,25 +1,53 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getImdbRating, getMovieById } from '../api/moviesAPI';
+import { useLocation, useParams } from 'react-router-dom';
+import {
+  getImdbId,
+  getImdbRating,
+  getMovieLink,
+  getMovieTvById,
+} from '../api/moviesAPI';
 import MovieTrailer from '../components/MovieTrailer';
 import Loader from '../components/Loader';
 
 export default function MovieDetails() {
-  const { id } = useParams();
+  const { id } = useParams(); // get the ID
+  const location = useLocation(); // get the full URL path
+  const [loading, setLoading] = useState(false); // loading state
   const [movie, setMovie] = useState(null);
+  const [movieLink, setMovieLink] = useState(null);
   const [imdbRating, setImdbRating] = useState(null);
 
+  // Determine type based on path
+  const isMovie = location.pathname.includes('/movie/');
+
   useEffect(() => {
+    setLoading(true);
     async function fetchMovie() {
-      const data = await getMovieById(id);
+      let data = null;
+
+      data = await getMovieTvById(id, isMovie ? 'movie' : 'tv');
       setMovie(data);
 
+      // if TV, need to fetch IMDB ID Separately
+      if (!isMovie) {
+        data.imdb_id = await getImdbId(id, 'tv'); // append IMDb ID to existing object
+      }
+
+      // get IMDB Rating
       if (data.imdb_id) {
         const imdbRating = await getImdbRating(data.imdb_id);
         setImdbRating(imdbRating);
       }
+
+      // get movie link
+      const movieLinkResult = await getMovieLink(data.title);
+      if (movieLinkResult) {
+        setMovieLink(movieLinkResult.link);
+      }
     }
+
     fetchMovie();
+    setLoading(false);
   }, [id]); // added id so it fetches when route changes
 
   if (!movie) return <Loader />;
@@ -40,7 +68,7 @@ export default function MovieDetails() {
                           ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
                           : '/placeholder.jpg'
                     }
-                    alt={movie.title}
+                    alt={movie.title || movie.name}
                     className="img-fluid"
                     loading="lazy"
                   />
@@ -71,7 +99,28 @@ export default function MovieDetails() {
                   data-aos-delay="100"
                 >
                   <div className="content-header">
-                    <h1 className="title">{movie.title}</h1>
+                    <div className="d-flex align-items-start justify-content-between">
+                      <h1 className="title">{movie.title || movie.name}</h1>
+
+                      {/* if movie link available, show download button */}
+                      {movieLink ? (
+                        <button
+                          className="custom-button"
+                          onClick={() => {
+                            // Open the Telegram link in a new tab
+                            window.open(movieLink, '_blank');
+                          }}
+                        >
+                          Download Now
+                        </button>
+                      ) : (
+                        <button className="custom-button">
+                          {loading
+                            ? 'Loading Download Link'
+                            : 'Not Available to Download Yet'}
+                        </button>
+                      )}
+                    </div>
 
                     <div className="author-info">
                       <div className="author-details">
@@ -104,7 +153,7 @@ export default function MovieDetails() {
                   <div className="content">
                     <p className="lead">{movie.overview}</p>
 
-                    <MovieTrailer movieId={movie.id} />
+                    <MovieTrailer id={movie.id} isMovie={isMovie} />
 
                     <h2>Movie Details</h2>
                     <ul>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { getMovieVideos } from '../api/moviesAPI';
+import { getTrailer } from '../api/moviesAPI';
 
-const MovieTrailer = ({ movieId }) => {
+const MovieTrailer = ({ id, isMovie }) => {
   const [trailer, setTrailer] = useState(null);
 
   useEffect(() => {
     const fetchTrailer = async () => {
-      const videos = await getMovieVideos(movieId);
+      const videos = await getTrailer(id, isMovie ? 'movie' : 'tv');
       // Pick the first official YouTube Trailer
       const trailerVideo = videos.find(
         (v) => (v.type === 'Trailer' || 'Teaser') && v.site === 'YouTube'
@@ -14,7 +14,7 @@ const MovieTrailer = ({ movieId }) => {
       setTrailer(trailerVideo);
     };
     fetchTrailer();
-  }, [movieId]);
+  }, []);
 
   return (
     <div>

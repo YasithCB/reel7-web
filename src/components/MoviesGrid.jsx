@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../assets/css/MoviesGrid.css';
 
-export default function MoviesGrid({ title, subtitle, list }) {
+export default function MoviesGrid({ title, subtitle, list, type }) {
   return (
     <section id="movie-showcase" className="movie-showcase section">
       {/* Section Title */}
@@ -19,7 +19,7 @@ export default function MoviesGrid({ title, subtitle, list }) {
           {list
             .filter((movie) => movie.poster_path || movie.backdrop_path)
             .map((movie) => (
-              <NavLink key={movie.id} to={`/movie/${movie.id}`}>
+              <NavLink key={movie.id} to={`/${type}/${movie.id}`}>
                 <div className="blog-post-item">
                   <img
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path || movie.backdrop_path}`}

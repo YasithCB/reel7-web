@@ -45,26 +45,31 @@ export default function TvSeries() {
             title={'Most Popular TV Series'}
             subtitle={"What's up in this month"}
             list={popular}
+            isMovie={false}
           />
           <MoviesSlider
             title={'Korean Dramas'}
             subtitle={"What's up in this month"}
             list={korean}
+            isMovie={false}
           />
           <MoviesSlider
             title={'English TV Series'}
             subtitle={"What's up in this month"}
             list={eng}
+            isMovie={false}
           />
           <MoviesSlider
             title={'Japan Anime'}
             subtitle={"What's up in this month"}
             list={japan}
+            isMovie={false}
           />
           <MoviesSlider
             title={'Hindi Shows'}
             subtitle={"What's up in this month"}
             list={hindi}
+            isMovie={false}
           />
         </div>
       )}

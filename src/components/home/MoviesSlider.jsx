@@ -7,7 +7,12 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 
-export default function MoviesSlider({ title, subtitle, list }) {
+export default function MoviesSlider({
+  title,
+  subtitle,
+  list,
+  isMovie = true,
+}) {
   return (
     <section id="movie-showcase" className="movie-showcase section">
       {/* Section Title */}
@@ -37,7 +42,7 @@ export default function MoviesSlider({ title, subtitle, list }) {
             .filter((movie) => movie.poster_path || movie.backdrop_path) // skip if null
             .map((movie) => (
               <SwiperSlide key={movie.id}>
-                <NavLink to={`/movie/${movie.id}`}>
+                <NavLink to={`/${isMovie ? 'movie' : 'tv'}/${movie.id}`}>
                   <div className="blog-post-item">
                     <img
                       src={`https://image.tmdb.org/t/p/w500${movie.poster_path || movie.backdrop_path}`}

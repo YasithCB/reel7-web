@@ -1,5 +1,10 @@
+@import "tailwindcss";
+
 :root {
     --primary-color: #f75815 !important;
+    --primary-color-hover: #cd4b13 !important;
+    --yellow-color: #ffd500 !important;
+    --yellow-color-hover: #ffc400 !important;
 }
 body{
     /*background-color: var(--primary-color);*/

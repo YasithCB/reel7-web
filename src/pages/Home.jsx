@@ -64,6 +64,7 @@ export default function Home() {
             title={'Most Popular TV Series'}
             subtitle={"What's up in this month"}
             list={popularTvSeries}
+            isMovie={false}
           />
           <MoviesSlider
             title={'Hindi Movies'}

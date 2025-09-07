@@ -67,7 +67,7 @@ export default function Header() {
                       {item.subCategories.map((sub, subIndex) => (
                         <li key={subIndex}>
                           <NavLink
-                            to={`/search-result?category=${item.title}&sub=${encodeURIComponent(sub.name)}&id=${sub.id}`}
+                            to={`/search-result?category=${item.categoryId}&type=${sub.type}&sub=${encodeURIComponent(sub.name)}&id=${sub.id}`}
                           >
                             {sub.name}
                           </NavLink>

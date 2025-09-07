@@ -2,23 +2,28 @@
   "name": "film-web",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
+  "proxy": "http://localhost:5000",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "format": "prettier --write .",
-    "check-format": "prettier --check ."
+    "check-format": "prettier --check .",
+    "tailwind:init": "tailwindcss init -p"
   },
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.0.0",
+    "@tailwindcss/vite": "^4.1.13",
     "axios": "^1.11.0",
     "bootstrap": "^5.3.8",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.8.2",
-    "swiper": "^11.2.10"
+    "swiper": "^11.2.10",
+    "tailwindcss": "^4.1.13"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.7.0",

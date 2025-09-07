@@ -10,7 +10,7 @@ export default function SearchForm() {
     if (!query.trim()) return;
 
     // If the search is a text query
-    let url = `/search-result?query=${encodeURIComponent(query)}`;
+    let url = `/search-result?type=mix&query=${encodeURIComponent(query)}`;
 
     navigate(url);
   };

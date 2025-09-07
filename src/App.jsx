@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import Home from './pages/Home';
 import Header from './components/Header';
@@ -21,6 +21,7 @@ export default function App() {
           <Route path="/tv" element={<TvSeries />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/movie/:id" element={<MovieDetails />} />
+          <Route path="/tv/:id" element={<MovieDetails />} />
           <Route path="/search-result" element={<SearchResults />} />
         </Route>
       </Routes>
